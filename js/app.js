@@ -25,6 +25,12 @@ function shuffle(array) {
     return array;
 }
 
+function turnCard(){
+        $('li.card').click(function(){
+            $(this).addClass("open show");
+        });
+}
+
 
 /*
  * set up the event listener for a card. If a card is clicked:
@@ -36,3 +42,5 @@ function shuffle(array) {
  *    + increment the move counter and display it on the page (put this functionality in another function that you call from this one)
  *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
  */
+
+turnCard();
