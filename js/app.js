@@ -25,16 +25,39 @@ function shuffle(array) {
     return array;
 }
 
+//Turn card function
 function turnCard(){
         $('li.card').click(function(){
             $(this).addClass("open show");
         });
 }
 
+//restart game function (is not complete yet! I need to make this function restart the count too!)
 function restartGame(){
     $(".fa-repeat").click(function(){
         $('li.card').removeClass("open show match");
     });
+}
+
+//push all the cards on an array
+function arrayCards(){
+    var cardList = document.getElementsByClassName("card");
+    var arrayCard = [];
+
+    for(var i in cardList){
+        arrayCard.push(cardList[i]);
+    }
+    return arrayCard;
+}
+
+//mount the document's tree with a new position cards
+function randomCards(){
+    shuffle(arrayCards);
+}
+
+//Compare cards function
+function compareCard(){
+
 }
 /*
  * set up the event listener for a card. If a card is clicked:
@@ -46,6 +69,9 @@ function restartGame(){
  *    + increment the move counter and display it on the page (put this functionality in another function that you call from this one)
  *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
  */
+
+console.log(shuffle(arrayCards()));
+
 
 turnCard();
 restartGame();
