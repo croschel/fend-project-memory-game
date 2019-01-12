@@ -48,8 +48,9 @@ function arrayCard(){
     shuffle(arrayCards);
     return arrayCards;
 }
+
 // push the card on array
-function arrayClickedCard(){
+function compareClickedCard(){
     var arrayClickedCards = [];
     var arrayParentCard = [];
 
@@ -66,8 +67,9 @@ function arrayClickedCard(){
             if (arrayClickedCards[0] == arrayClickedCards[1]) {
                 
                 for (let i = 0; i < arrayClickedCards.length; i++) {
-                    arrayParentCard[i].addClass("match"); 
+                    arrayParentCard[i].addClass("match");
                  }
+                 console.log("Você encontrou os cards: "+arrayClickedCards)
                  arrayClickedCards = [];
                 arrayParentCard = [];
             }else{
@@ -82,16 +84,6 @@ function arrayClickedCard(){
     
 }
 
-
-// //mount the document's tree with a new position cards
-// function randomCards(){
-//     shuffle(arrayCards);
-// }
-
-//Compare cards function
-function compareCard(){
-
-}
 /*
  * set up the event listener for a card. If a card is clicked:
  *  - display the card's symbol (put this functionality in another function that you call from this one)
@@ -103,7 +95,7 @@ function compareCard(){
  *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
  */
 
-arrayClickedCard();
+compareClickedCard();
 //console.log(arrayCards());
 //turnCard();
 restartGame();
