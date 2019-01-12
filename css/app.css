@@ -73,6 +73,7 @@ h1 {
 
 .deck .card.show {
     font-size: 33px;
+    animation-timing-function: ease-in-out;
 }
 
 .deck .card.match {

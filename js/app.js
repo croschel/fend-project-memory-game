@@ -26,10 +26,8 @@ function shuffle(array) {
 }
 
 //Turn card function
-function turnCard(){
-        $('li.card').click(function(){
-            $(this).addClass("open show");
-        });
+function turnCard(card){
+    card.addClass("open show");           
 }
 
 //restart game function (is not complete yet! I need to make this function restart the count too!)
@@ -39,21 +37,56 @@ function restartGame(){
     });
 }
 
-//push all the cards on an array
-function arrayCards(){
+//push all the cards on an array for shuffle
+function arrayCard(){
     var cardList = document.getElementsByClassName("card");
-    var arrayCard = [];
+    var arrayCards = [];
 
     for(var i in cardList){
-        arrayCard.push(cardList[i]);
+        arrayCards.push(cardList[i]);
     }
-    return arrayCard;
+    shuffle(arrayCards);
+    return arrayCards;
+}
+// push the card on array
+function arrayClickedCard(){
+    var arrayClickedCards = [];
+    var arrayParentCard = [];
+
+    $('li.card').click(function(){
+        
+        turnCard($(this));
+
+        card = $(this).children().attr('class');
+        arrayParentCard.push($(this));
+        arrayClickedCards.push(card);
+        console.log(arrayParentCard.length);
+
+        if (arrayParentCard.length == 2) {
+            if (arrayClickedCards[0] == arrayClickedCards[1]) {
+                
+                for (let i = 0; i < arrayClickedCards.length; i++) {
+                    arrayParentCard[i].addClass("match"); 
+                 }
+                 arrayClickedCards = [];
+                arrayParentCard = [];
+            }else{
+                for (let i = 0; i < arrayClickedCards.length; i++) {
+                    arrayParentCard[i].removeClass("open show"); 
+                 }
+                 arrayClickedCards = [];
+                arrayParentCard = [];
+            }
+        }
+    });
+    
 }
 
-//mount the document's tree with a new position cards
-function randomCards(){
-    shuffle(arrayCards);
-}
+
+// //mount the document's tree with a new position cards
+// function randomCards(){
+//     shuffle(arrayCards);
+// }
 
 //Compare cards function
 function compareCard(){
@@ -70,8 +103,7 @@ function compareCard(){
  *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
  */
 
-console.log(shuffle(arrayCards()));
-
-
-turnCard();
+arrayClickedCard();
+//console.log(arrayCards());
+//turnCard();
 restartGame();
