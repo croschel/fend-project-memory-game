@@ -34,6 +34,7 @@ function turnCard(card){
 function restartGame(){
     $(".fa-repeat").click(function(){
         $('li.card').removeClass("open show match");
+        $('span.moves').text("");
     });
 }
 
@@ -85,14 +86,30 @@ function compareClickedCard(){
 }
 
 //how many moves do you need?
-function movesCounter(){
+function scoreCounter(){
     var moves = 0;
     $('.card').click(function(){
         moves = moves + 1; 
         console.log(moves);
         $('span.moves').text(moves);
-    })
+        starRanking(moves);
+    });
     
+}
+
+function starRanking(move){
+    
+    if(move == 25){
+        removeStar();
+    }else if(move == 35){
+        removeStar();
+    }
+}
+
+
+function removeStar(){
+    let star = document.getElementById("star");
+        star.removeChild(star.childNodes[0]);
 }
 /*
  * set up the event listener for a card. If a card is clicked:
@@ -105,6 +122,6 @@ function movesCounter(){
  *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
  */
 
-movesCounter();
+scoreCounter();
 compareClickedCard();
 restartGame();
