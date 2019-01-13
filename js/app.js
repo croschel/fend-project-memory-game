@@ -84,6 +84,16 @@ function compareClickedCard(){
     
 }
 
+//how many moves do you need?
+function movesCounter(){
+    var moves = 0;
+    $('.card').click(function(){
+        moves = moves + 1; 
+        console.log(moves);
+        $('span.moves').text(moves);
+    })
+    
+}
 /*
  * set up the event listener for a card. If a card is clicked:
  *  - display the card's symbol (put this functionality in another function that you call from this one)
@@ -95,7 +105,6 @@ function compareClickedCard(){
  *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
  */
 
+movesCounter();
 compareClickedCard();
-//console.log(arrayCards());
-//turnCard();
 restartGame();
