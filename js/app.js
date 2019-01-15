@@ -10,6 +10,10 @@
  *   - add each card's HTML to the page
  */
 
+//Global Variables
+var moves = 0;
+//Global Variables
+
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
     var currentIndex = array.length, temporaryValue, randomIndex;
@@ -70,16 +74,18 @@ function compareClickedCard(){
                 for (let i = 0; i < arrayClickedCards.length; i++) {
                     arrayParentCard[i].addClass("match");
                  }
-                 console.log("Você encontrou os cards: "+arrayClickedCards)
-                 arrayClickedCards = [];
+                console.log("Você encontrou os cards: "+arrayClickedCards)
+                arrayClickedCards = [];
                 arrayParentCard = [];
             }else{
                 for (let i = 0; i < arrayClickedCards.length; i++) {
                     arrayParentCard[i].removeClass("open show"); 
                  }
-                 arrayClickedCards = [];
+                arrayClickedCards = [];
                 arrayParentCard = [];
             }
+        }else if (arrayParentCard.length < 2) {
+            $(this).css("pointer-events","none");
         }
     });
     
@@ -87,21 +93,18 @@ function compareClickedCard(){
 
 //how many moves do you need?
 function scoreCounter(){
-    var moves = 0;
     $('.card').click(function(){
         moves = moves + 1; 
-        console.log(moves);
         $('span.moves').text(moves);
-        starRanking(moves);
     });
-    
 }
 
-function starRanking(move){
+//How many star you will get?
+function starRanking(){
     
-    if(move == 25){
+    if(moves == 25){
         removeStar();
-    }else if(move == 35){
+    }else if(moves == 35){
         removeStar();
     }
 }
@@ -113,8 +116,8 @@ function removeStar(){
 }
 /*
  * set up the event listener for a card. If a card is clicked:
- *  - display the card's symbol (put this functionality in another function that you call from this one)
- *  - add the card to a *list* of "open" cards (put this functionality in another function that you call from this one)
+ *  OK - display the card's symbol (put this functionality in another function that you call from this one)
+ *  OK - add the card to a *list* of "open" cards (put this functionality in another function that you call from this one)
  *  - if the list already has another card, check to see if the two cards match
  *    + if the cards do match, lock the cards in the open position (put this functionality in another function that you call from this one)
  *    + if the cards do not match, remove the cards from the list and hide the card's symbol (put this functionality in another function that you call from this one)
@@ -123,5 +126,6 @@ function removeStar(){
  */
 
 scoreCounter();
+starRanking();
 compareClickedCard();
 restartGame();
