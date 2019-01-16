@@ -39,6 +39,8 @@ function restartGame(){
     $(".fa-repeat").click(function(){
         $('li.card').removeClass("open show match");
         $('span.moves').text("");
+        moves = 0;
+        $('li.card').css("pointer-events","all");
     });
 }
 
@@ -60,32 +62,34 @@ function compareClickedCard(){
     var arrayParentCard = [];
 
     $('li.card').click(function(){
-        
+
         turnCard($(this));
+        $(this).css("pointer-events","none");
 
         card = $(this).children().attr('class');
         arrayParentCard.push($(this));
         arrayClickedCards.push(card);
-        console.log(arrayParentCard.length);
+        
+        //console.log(arrayParentCard.length);
 
         if (arrayParentCard.length == 2) {
             if (arrayClickedCards[0] == arrayClickedCards[1]) {
                 
                 for (let i = 0; i < arrayClickedCards.length; i++) {
                     arrayParentCard[i].addClass("match");
+                    arrayParentCard[i].css("pointer-events","none");
                  }
                 console.log("Você encontrou os cards: "+arrayClickedCards)
                 arrayClickedCards = [];
                 arrayParentCard = [];
             }else{
                 for (let i = 0; i < arrayClickedCards.length; i++) {
-                    arrayParentCard[i].removeClass("open show"); 
+                    arrayParentCard[i].removeClass("open show");
+                    arrayParentCard[i].css("pointer-events","all"); 
                  }
                 arrayClickedCards = [];
                 arrayParentCard = [];
             }
-        }else if (arrayParentCard.length < 2) {
-            $(this).css("pointer-events","none");
         }
     });
     
@@ -94,7 +98,7 @@ function compareClickedCard(){
 //how many moves do you need?
 function scoreCounter(){
     $('.card').click(function(){
-        moves = moves + 1; 
+        moves = moves + 1;
         $('span.moves').text(moves);
     });
 }
@@ -118,10 +122,10 @@ function removeStar(){
  * set up the event listener for a card. If a card is clicked:
  *  OK - display the card's symbol (put this functionality in another function that you call from this one)
  *  OK - add the card to a *list* of "open" cards (put this functionality in another function that you call from this one)
- *  - if the list already has another card, check to see if the two cards match
- *    + if the cards do match, lock the cards in the open position (put this functionality in another function that you call from this one)
- *    + if the cards do not match, remove the cards from the list and hide the card's symbol (put this functionality in another function that you call from this one)
- *    + increment the move counter and display it on the page (put this functionality in another function that you call from this one)
+ *  OK if the list already has another card, check to see if the two cards match
+ *   OK if the cards do match, lock the cards in the open position (put this functionality in another function that you call from this one)
+ *   OK if the cards do not match, remove the cards from the list and hide the card's symbol (put this functionality in another function that you call from this one)
+ *   OK increment the move counter and display it on the page (put this functionality in another function that you call from this one)
  *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
  */
 
