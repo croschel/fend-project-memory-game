@@ -64,6 +64,7 @@ function compareClickedCard(){
     $('li.card').click(function(){
 
         turnCard($(this));
+        starRanking();
         $(this).css("pointer-events","none");
 
         card = $(this).children().attr('class');
@@ -93,6 +94,7 @@ function compareClickedCard(){
         }
     });
     
+    
 }
 
 //how many moves do you need?
@@ -105,7 +107,7 @@ function scoreCounter(){
 
 //How many star you will get?
 function starRanking(){
-    
+    console.log(moves);
     if(moves == 25){
         removeStar();
     }else if(moves == 35){
@@ -130,6 +132,6 @@ function removeStar(){
  */
 
 scoreCounter();
-starRanking();
+
 compareClickedCard();
 restartGame();
