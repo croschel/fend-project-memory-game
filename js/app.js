@@ -64,13 +64,13 @@ function compareClickedCard(){
     $('li.card').click(function(){
 
         turnCard($(this));
-        starRanking();
         $(this).css("pointer-events","none");
 
         card = $(this).children().attr('class');
         arrayParentCard.push($(this));
         arrayClickedCards.push(card);
-        
+        starRanking();
+
         //console.log(arrayParentCard.length);
 
         if (arrayParentCard.length == 2) {
@@ -84,12 +84,19 @@ function compareClickedCard(){
                 arrayClickedCards = [];
                 arrayParentCard = [];
             }else{
+                
+                arrayParentCard[0].addClass("wrong");
+                arrayParentCard[1].addClass("wrong");
+
+                setTimeout(function(){
                 for (let i = 0; i < arrayClickedCards.length; i++) {
-                    arrayParentCard[i].removeClass("open show");
+                    arrayParentCard[i].addClass("wrong");
+                    arrayParentCard[i].removeClass("open show wrong");
                     arrayParentCard[i].css("pointer-events","all"); 
                  }
                 arrayClickedCards = [];
                 arrayParentCard = [];
+                },1000);
             }
         }
     });
@@ -108,9 +115,9 @@ function scoreCounter(){
 //How many star you will get?
 function starRanking(){
     console.log(moves);
-    if(moves == 25){
+    if(moves === 25){
         removeStar();
-    }else if(moves == 35){
+    }else if(moves === 35){
         removeStar();
     }
 }
