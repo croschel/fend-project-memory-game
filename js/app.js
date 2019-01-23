@@ -1,17 +1,5 @@
-/*
- * Create a list that holds all of your cards
- */
-
-
-/*
- * Display the cards on the page
- *   - shuffle the list of cards using the provided "shuffle" method below
- *   - loop through each card and create its HTML
- *   - add each card's HTML to the page
- */
-
 //Global Variables
-var moves = 0, stars = 3;
+var moves = 0, stars = 3, sec = 0; time = 0, counter = 0, cardsCorrect = 0;
 //Global Variables
 
 // Shuffle function from http://stackoverflow.com/a/2450976
@@ -42,12 +30,30 @@ function restartGame(){
         moves = 0;
         $('li.card').css("pointer-events","all");
         randomCards();
+        sec = 0;
+        time = 0;
+
+        if(cardsCorrect == 8){ // check if the game is over or not
+        scoreCounter();
+        }
+        resetStar();
     });
+}
+
+//reset stars
+function resetStar(){
+    if(stars == 1){
+        $("#stars").append("<li><i class=\"fa fa-star\"></i></li>");
+        $("#stars").append("<li><i class=\"fa fa-star\"></i></li>");
+    }else if(stars == 2){
+        $("#stars").append("<li><i class=\"fa fa-star\"></i></li>");
+    }
+    stars = 3;
 }
 
 //push all the cards on an array for shuffle
 function arrayCard(){
-    //var cardList = document.getElementsByClassName("card");
+    
     var cardList = $(".card").children();
     var arrayCards = [];
 
@@ -80,7 +86,7 @@ function randomCards(){
 function compareClickedCard(){
     var arrayClickedCards = [];
     var arrayParentCard = [];
-    var cardsCorrect = 0;
+    
 
     $('li.card').click(function(){
 
@@ -121,24 +127,50 @@ function compareClickedCard(){
             
         }
         starRanking();
-    });
-    
-    
+    });   
 }
 
 //Check if all cards was discovered
 function checkFinalGame(cards){
     if (cards == 8){
+        stopTime();
         messageWinner();
     }
 }
 
 //how many moves do you need?
 function scoreCounter(){
+   counter = setInterval( function(){
+        time++;
+        timeCounter();
+        }, 1000);
     $('.card').click(function(){
         moves = moves + 1;
         $('span.moves').text(moves);
     });
+}
+
+//timer counter
+function timeCounter(){
+    document.getElementById("seconds").innerHTML=calcTime(++sec%60);
+    document.getElementById("minutes").innerHTML=calcTime(parseInt(sec/60,10));
+}    
+
+//calculate the time for render the numbers
+function calcTime(val){
+    return val > 9 ? val : "0" + val; 
+}
+
+//calculate the final time in minutes
+function finalMin(){
+    let minFinal = Math.floor(time / 60);
+    return minFinal;
+}
+
+//calculate the final time in seconds
+function finalSec(){
+    let secFinal = Math.floor(time % 60);
+    return secFinal;
 }
 
 //How many star you will get?
@@ -151,27 +183,25 @@ function starRanking(){
     }
 }
 
+//stop the time
+function stopTime(){
+    clearInterval(counter);
+}
+
 // remove some stars
 function removeStar(){
     $(".fa-star").first().remove();
     stars -= 1;
 }
 
+//show the win message
 function messageWinner(){
     alert("You won! Congratulations!!!"+
             "\n This is your final score: "+moves+" moves"+
-            "\n Number of stars: "+stars);
+            "\n Number of stars: "+stars+
+            "\n Time: "+finalMin()+" minutes and "+finalSec()+" seconds");
 }
-/*
- * set up the event listener for a card. If a card is clicked:
- *  OK - display the card's symbol (put this functionality in another function that you call from this one)
- *  OK - add the card to a *list* of "open" cards (put this functionality in another function that you call from this one)
- *  OK if the list already has another card, check to see if the two cards match
- *   OK if the cards do match, lock the cards in the open position (put this functionality in another function that you call from this one)
- *   OK if the cards do not match, remove the cards from the list and hide the card's symbol (put this functionality in another function that you call from this one)
- *   OK increment the move counter and display it on the page (put this functionality in another function that you call from this one)
- *    OK if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
- */
+
 randomCards();
 scoreCounter();
 compareClickedCard();
